@@ -11,8 +11,8 @@ Source0:	http://directory.fedora.redhat.com/sources/mod_nss-%{version}.tar.gz
 URL:		http://directory.fedora.redhat.com/wiki/Mod_nss
 BuildRequires:	%{apxs}
 BuildRequires:	apache-devel >= 2.0
-BuildRequires:	apr-devel >= 1.0
-BuildRequires:	apr-util-devel >= 1.0
+BuildRequires:	apr-devel >= 1:1.0
+BuildRequires:	apr-util-devel >= 1:1.0
 BuildRequires:	nspr-devel >= 1:4.6.2
 BuildRequires:	nss-devel >= 1:3.11.3
 Requires:	apache >= 2.0
