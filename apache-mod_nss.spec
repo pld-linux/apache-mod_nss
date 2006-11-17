@@ -15,7 +15,7 @@ BuildRequires:	apr-devel >= 1:1.0
 BuildRequires:	apr-util-devel >= 1:1.0
 BuildRequires:	nspr-devel >= 1:4.6.2
 BuildRequires:	nss-devel >= 1:3.11.3
-Requires:	apache >= 2.0
+Requires:	apache(modules-api) = %{apache_modules_api}
 Requires:	nspr >= 1:4.6.2
 Requires:	nss >= 1:3.11.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
