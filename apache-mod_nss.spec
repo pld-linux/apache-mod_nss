@@ -1,6 +1,6 @@
 %define		apxs		/usr/sbin/apxs
 Summary:	mod_nss - strong cryptography support for Apache using SSL/TLS library NSS
-Summary(pl):	mod_nss - silna kryptografia dla Apache'a przy uøyciu biblioteki SSL/TLS NSS
+Summary(pl.UTF-8):   mod_nss - silna kryptografia dla Apache'a przy u≈ºyciu biblioteki SSL/TLS NSS
 Name:		apache-mod_nss
 Version:	1.0.6
 Release:	0.1
@@ -34,15 +34,15 @@ mod_nss is based directly on the mod_ssl package from Apache 2.0.54.
 It is a conversion from using OpenSSL calls to using NSS calls
 instead.
 
-%description -l pl
-Modu≥ Apache'a 2.0 implementuj±cy kryptografiÍ przy uøyciu bibliotek
-kryptograficznych Mozilla NSS. Obs≥uguje SSL v3/TLS v1 wraz z
-uwierzytelnianiem z uøyciem certyfikatu klienta. NSS zapewnia
-aplikacjom WWW dostarczanie kryptografii z certyfikacj± FIPS 140 i
-obs≥ugÍ pe≥nego zakresu urz±dzeÒ PKCS#11.
+%description -l pl.UTF-8
+Modu≈Ç Apache'a 2.0 implementujƒÖcy kryptografiƒô przy u≈ºyciu bibliotek
+kryptograficznych Mozilla NSS. Obs≈Çuguje SSL v3/TLS v1 wraz z
+uwierzytelnianiem z u≈ºyciem certyfikatu klienta. NSS zapewnia
+aplikacjom WWW dostarczanie kryptografii z certyfikacjƒÖ FIPS 140 i
+obs≈Çugƒô pe≈Çnego zakresu urzƒÖdze≈Ñ PKCS#11.
 
-mod_nss jest oparty bezpo∂rednio na pakiecie mod_ssl z Apache'a
-2.0.54, jedynie zosta≥ zmodyfikowany tak, aby uøywa≥ wywo≥aÒ NSS
+mod_nss jest oparty bezpo≈õrednio na pakiecie mod_ssl z Apache'a
+2.0.54, jedynie zosta≈Ç zmodyfikowany tak, aby u≈ºywa≈Ç wywo≈Ça≈Ñ NSS
 zamiast OpenSSL.
 
 %prep
