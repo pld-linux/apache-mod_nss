@@ -1,6 +1,6 @@
 %define		apxs		/usr/sbin/apxs
 Summary:	mod_nss - strong cryptography support for Apache using SSL/TLS library NSS
-Summary(pl.UTF-8):   mod_nss - silna kryptografia dla Apache'a przy użyciu biblioteki SSL/TLS NSS
+Summary(pl.UTF-8):	mod_nss - silna kryptografia dla Apache'a przy użyciu biblioteki SSL/TLS NSS
 Name:		apache-mod_nss
 Version:	1.0.6
 Release:	0.1
