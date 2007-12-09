@@ -9,7 +9,7 @@ Group:		Networking/Daemons
 Source0:	http://directory.fedoraproject.org/sources/mod_nss-%{version}.tar.gz
 # Source0-md5:	71107cbc702bf07c6c79843aa92a0e09
 URL:		http://directory.fedoraproject.org/wiki/Mod_nss
-BuildRequires:	apache-apxs >= 2.0
+BuildRequires:	%{apxs}
 BuildRequires:	apache-devel >= 2.0
 BuildRequires:	apr-devel >= 1:1.0
 BuildRequires:	apr-util-devel >= 1:1.0
