@@ -4,7 +4,7 @@ Summary(pl.UTF-8):	mod_nss - silna kryptografia dla Apache'a przy użyciu biblio
 Name:		apache-mod_nss
 Version:	1.0.7
 Release:	0.1
-License:	Apache 2.0
+License:	Apache v2.0
 Group:		Networking/Daemons
 Source0:	http://directory.fedoraproject.org/sources/mod_nss-%{version}.tar.gz
 # Source0-md5:	71107cbc702bf07c6c79843aa92a0e09
