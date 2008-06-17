@@ -1,0 +1,42 @@
+--- mod_nss-1.0.7/nss.conf.in	2008-06-17 08:01:20.271920831 +0300
++++ mod_nss-1.0.7/nss.conf.in	2008-06-17 08:02:20.707400929 +0300
+@@ -15,5 +15,5 @@
+ # Note: Configurations that use IPv6 but not IPv4-mapped addresses need two
+-#       Listen directives: "Listen [::]:443" and "Listen 0.0.0.0:443"
++#       Listen directives: "Listen [::]:8443" and "Listen 0.0.0.0:8443"
+ #
+-Listen 443
++Listen 8443
+ 
+@@ -68,17 +68,17 @@
+ ## SSL Virtual Host Context
+ ##
+ 
+-<VirtualHost _default_:443>
++<VirtualHost _default_:8443>
+ 
+ #   General setup for the virtual host
+-#DocumentRoot "@apache_prefix@/htdocs"
+-#ServerName www.example.com:443
++#DocumentRoot "/home/services/httpd/html"
++#ServerName www.example.com:8443
+ #ServerAdmin you@example.com
+ 
+ # mod_nss can log to separate log files, you can choose to do that if you'd like
+ # LogLevel is not inherited from httpd.conf.
+-#ErrorLog @apache_prefix@/logs/error_log
+-#TransferLog @apache_prefix@/logs/access_log
++#ErrorLog logs/error_log
++#TransferLog logs/access_log
+ LogLevel warn
+ 
+ #   SSL Engine Switch:
+@@ -189,7 +189,7 @@
+ <Files ~ "\.(cgi|shtml|phtml|php3?)$">
+     NSSOptions +StdEnvVars
+ </Files>
+-<Directory "@apache_prefix@/cgi-bin">
++<Directory "/home/services/httpd/cgi-bin">
+     NSSOptions +StdEnvVars
+ </Directory>
+ 
