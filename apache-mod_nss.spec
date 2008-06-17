@@ -4,7 +4,7 @@ Summary:	mod_nss - strong cryptography support for Apache using SSL/TLS library 
 Summary(pl.UTF-8):	mod_nss - silna kryptografia dla Apache'a przy użyciu biblioteki SSL/TLS NSS
 Name:		apache-mod_nss
 Version:	1.0.7
-Release:	0.2
+Release:	0.3
 License:	Apache v2.0
 Group:		Networking/Daemons
 Source0:	http://directory.fedoraproject.org/sources/mod_nss-%{version}.tar.gz
@@ -74,6 +74,14 @@ cp -a nss.conf $RPM_BUILD_ROOT%{_sysconfdir}/40_mod_%{mod_name}.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post
+%service -q httpd restart
+
+%postun
+if [ "$1" = "0" ]; then
+	%service -q httpd restart
+fi
 
 %files
 %defattr(644,root,root,755)
