@@ -1,3 +1,5 @@
+# TODO
+# - apache config
 %define		apxs		/usr/sbin/apxs
 Summary:	mod_nss - strong cryptography support for Apache using SSL/TLS library NSS
 Summary(pl.UTF-8):	mod_nss - silna kryptografia dla Apache'a przy użyciu biblioteki SSL/TLS NSS
@@ -24,7 +26,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_sysconfdir	%(%{apxs} -q SYSCONFDIR 2>/dev/null)
 
 %description
-An Apache 2.0 module for implementing crypto using the Mozilla NSS
+An Apache 2.x module for implementing crypto using the Mozilla NSS
 crypto libraries. This supports SSL v3/TLS v1 including support for
 client certificate authentication. NSS provides web applications with
 a FIPS 140 certified crypto provider and support for a full range of
@@ -35,7 +37,7 @@ It is a conversion from using OpenSSL calls to using NSS calls
 instead.
 
 %description -l pl.UTF-8
-Moduł Apache'a 2.0 implementujący kryptografię przy użyciu bibliotek
+Moduł Apache'a 2.x implementujący kryptografię przy użyciu bibliotek
 kryptograficznych Mozilla NSS. Obsługuje SSL v3/TLS v1 wraz z
 uwierzytelnianiem z użyciem certyfikatu klienta. NSS zapewnia
 aplikacjom WWW dostarczanie kryptografii z certyfikacją FIPS 140 i
