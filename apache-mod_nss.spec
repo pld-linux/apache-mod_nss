@@ -1,15 +1,15 @@
-# TODO
-# - apache config
+%define		mod_name	nss
 %define		apxs		/usr/sbin/apxs
 Summary:	mod_nss - strong cryptography support for Apache using SSL/TLS library NSS
 Summary(pl.UTF-8):	mod_nss - silna kryptografia dla Apache'a przy użyciu biblioteki SSL/TLS NSS
 Name:		apache-mod_nss
 Version:	1.0.7
-Release:	0.1
+Release:	0.2
 License:	Apache v2.0
 Group:		Networking/Daemons
 Source0:	http://directory.fedoraproject.org/sources/mod_nss-%{version}.tar.gz
 # Source0-md5:	71107cbc702bf07c6c79843aa92a0e09
+Patch0:		%{name}-config.patch
 URL:		http://directory.fedoraproject.org/wiki/Mod_nss
 BuildRequires:	%{apxs}
 BuildRequires:	apache-devel >= 2.0
@@ -23,7 +23,7 @@ Requires:	nss >= 1:3.11.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_pkglibdir	%(%{apxs} -q LIBEXECDIR 2>/dev/null)
-%define		_sysconfdir	%(%{apxs} -q SYSCONFDIR 2>/dev/null)
+%define		_sysconfdir	%(%{apxs} -q SYSCONFDIR 2>/dev/null)/conf.d
 
 %description
 An Apache 2.x module for implementing crypto using the Mozilla NSS
@@ -49,6 +49,7 @@ zamiast OpenSSL.
 
 %prep
 %setup -q -n mod_nss-%{version}
+%patch0 -p1
 
 %build
 # apr-util is missing in configure check
@@ -65,19 +66,18 @@ CPPFLAGS="`apu-1-config --includes`"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sbindir},%{_pkglibdir}}
-
+install -d $RPM_BUILD_ROOT{%{_sbindir},%{_pkglibdir},%{_sysconfdir}}
 install .libs/libmodnss.so $RPM_BUILD_ROOT%{_pkglibdir}
 install nss_pcache $RPM_BUILD_ROOT%{_sbindir}
 
-# TODO: nss.conf -> %{_sysconfdir}/httpd.conf/XX_mod_nss.conf
-# (NOTE: at least default config conflicts with mod_ssl)
+cp -a nss.conf $RPM_BUILD_ROOT%{_sysconfdir}/40_mod_%{mod_name}.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc NOTICE README TODO docs/mod_nss.html nss.conf
+%doc NOTICE README TODO docs/mod_nss.html
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*_mod_%{mod_name}.conf
 %attr(755,root,root) %{_pkglibdir}/libmodnss.so
 %attr(755,root,root) %{_sbindir}/nss_pcache
