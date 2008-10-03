@@ -7,7 +7,7 @@ Summary:	mod_nss - strong cryptography support for Apache using SSL/TLS library 
 Summary(pl.UTF-8):	mod_nss - silna kryptografia dla Apache'a przy użyciu biblioteki SSL/TLS NSS
 Name:		apache-mod_nss
 Version:	1.0.8
-Release:	0.2
+Release:	0.6
 License:	Apache v2.0
 Group:		Networking/Daemons
 Source0:	http://directory.fedoraproject.org/sources/mod_nss-%{version}.tar.gz
@@ -112,10 +112,10 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc NOTICE README TODO docs/mod_nss.html migrate.pl
-%attr(750,root,root) %dir %{_sysconfdir}/nss
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/nss/cert8.db
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/nss/key3.db
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/nss/secmod.db
+%attr(750,root,http) %dir %{_sysconfdir}/nss
+%attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/nss/cert8.db
+%attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/nss/key3.db
+%attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/nss/secmod.db
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/conf.d/*_mod_%{mod_name}.conf
 %attr(755,root,root) %{_pkglibdir}/libmodnss.so
 %attr(755,root,root) %{_sbindir}/nss_pcache
