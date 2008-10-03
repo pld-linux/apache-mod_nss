@@ -19,6 +19,7 @@ BuildRequires:	%{apxs}
 BuildRequires:	apache-devel >= 2.0
 BuildRequires:	apr-devel >= 1:1.0
 BuildRequires:	apr-util-devel >= 1:1.0
+BuildRequires:	libstdc++-devel
 BuildRequires:	nspr-devel >= 1:4.6.2
 BuildRequires:	nss-devel >= 1:3.11.3
 #BuildRequires:	nss-tools
@@ -61,8 +62,10 @@ cp %{SOURCE2} server.key
 
 %build
 # apr-util is missing in configure check
-CPPFLAGS="`apu-1-config --includes`"
+CPPFLAGS=$(apu-1-config --includes)
 %configure \
+	CPP="%{__cpp}" \
+	CXXCPP="%{__cxx} -E" \
 	--with-apxs=%{apxs} \
 	--with-apr-config \
 	--with-nspr-inc=/usr/include/nspr \
