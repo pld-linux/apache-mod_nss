@@ -1,18 +1,21 @@
-# TODO
-# - certutil tries to open /dev/tty to get passphrase for nss db init
+# Conditional build:
+%bcond_with	builddb		# build nss database. requires interactive input
+#
 %define		mod_name	nss
 %define		apxs		/usr/sbin/apxs
 Summary:	mod_nss - strong cryptography support for Apache using SSL/TLS library NSS
 Summary(pl.UTF-8):	mod_nss - silna kryptografia dla Apache'a przy użyciu biblioteki SSL/TLS NSS
 Name:		apache-mod_nss
 Version:	1.0.8
-Release:	0.1
+Release:	0.2
 License:	Apache v2.0
 Group:		Networking/Daemons
 Source0:	http://directory.fedoraproject.org/sources/mod_nss-%{version}.tar.gz
 # Source0-md5:	32458d91ce909260a6081cce58004e2f
 Source1:	apache-server.crt
 Source2:	apache-server.key
+Source3:	nss.tar.bz2
+# Source3-md5:	d5bfafc09ad23f4bdd917d450680cec7
 Patch0:		%{name}-config.patch
 URL:		http://directory.fedoraproject.org/wiki/Mod_nss
 BuildRequires:	%{apxs}
@@ -22,8 +25,10 @@ BuildRequires:	apr-util-devel >= 1:1.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	nspr-devel >= 1:4.6.2
 BuildRequires:	nss-devel >= 1:3.11.3
-#BuildRequires:	nss-tools
-#BuildRequires:	openssl-tools
+%if %{with builddb}
+BuildRequires:	nss-tools
+BuildRequires:	openssl-tools
+%endif
 Requires:	apache(modules-api) = %{apache_modules_api}
 Requires:	nspr >= 1:4.6.2
 Requires:	nss >= 1:3.11.3
@@ -55,7 +60,7 @@ mod_nss jest oparty bezpośrednio na pakiecie mod_ssl z Apache'a
 zamiast OpenSSL.
 
 %prep
-%setup -q -n mod_nss-%{version}
+%setup -q -n mod_nss-%{version} -a3
 %patch0 -p1
 cp %{SOURCE1} server.crt
 cp %{SOURCE2} server.key
@@ -75,11 +80,14 @@ CPPFLAGS=$(apu-1-config --includes)
 
 %{__make}
 
+%if %{with builddb}
+# XXX: this is interactive, cannot be done in builders process
+rm -rf nss
 install -d nss
-# XXX: this is interactive, cannot be done in rpm build process
-#certutil -N -d nss
-#openssl pkcs12 -export -in server.crt -inkey server.key -out server.p12 -name "Server-Cert" -passout pass:
-#pk12util -i server.p12 -d nss -W ''
+certutil -N -d nss
+openssl pkcs12 -export -in server.crt -inkey server.key -out server.p12 -name "Server-Cert" -passout pass:
+pk12util -i server.p12 -d nss -W ''
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -88,7 +96,7 @@ install .libs/libmodnss.so $RPM_BUILD_ROOT%{_pkglibdir}
 install nss_pcache $RPM_BUILD_ROOT%{_sbindir}
 
 cp -a nss.conf $RPM_BUILD_ROOT%{_sysconfdir}/conf.d/40_mod_%{mod_name}.conf
-#cp -a nss/* $RPM_BUILD_ROOT%{_sysconfdir}/nss
+cp -a nss/* $RPM_BUILD_ROOT%{_sysconfdir}/nss
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -105,9 +113,9 @@ fi
 %defattr(644,root,root,755)
 %doc NOTICE README TODO docs/mod_nss.html migrate.pl
 %attr(750,root,root) %dir %{_sysconfdir}/nss
-#%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/nss/cert8.db
-#%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/nss/key3.db
-#%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/nss/secmod.db
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/nss/cert8.db
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/nss/key3.db
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/nss/secmod.db
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/conf.d/*_mod_%{mod_name}.conf
 %attr(755,root,root) %{_pkglibdir}/libmodnss.so
 %attr(755,root,root) %{_sbindir}/nss_pcache
