@@ -9,7 +9,7 @@ Name:		apache-mod_nss
 Version:	1.0.8
 Release:	0.6
 License:	Apache v2.0
-Group:		Networking/Daemons
+Group:		Networking/Daemons/HTTP
 Source0:	http://directory.fedoraproject.org/sources/mod_nss-%{version}.tar.gz
 # Source0-md5:	32458d91ce909260a6081cce58004e2f
 Source1:	apache-server.crt
