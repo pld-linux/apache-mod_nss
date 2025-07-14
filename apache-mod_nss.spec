@@ -61,7 +61,7 @@ zamiast OpenSSL.
 
 %prep
 %setup -q -n mod_nss-%{version} -a3
-%patch0 -p1
+%patch -P0 -p1
 cp %{SOURCE1} server.crt
 cp %{SOURCE2} server.key
 
